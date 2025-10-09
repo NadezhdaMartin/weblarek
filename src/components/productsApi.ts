@@ -1,12 +1,20 @@
-import { TProductsFromServer, IPurchaseData } from "../types/index";
+import { TProductFromServer, IApiProductsResponse, IApiOrderRequest, IApiOrderResponse } from "../types/index";
 import { Api } from "./base/Api"
 
-export class ProductsApi extends Api {
-    getProducts(): Promise<TProductsFromServer[]> {
-      return this.get<TProductsFromServer[]>('/product/');
+
+export class ProductsApi {
+    private api: Api;
+
+    constructor(api: Api) {
+      this.api = api;
     }
 
-    addPurchaseData(data: Partial<IPurchaseData>): Promise<IPurchaseData> {
-      return this.post<IPurchaseData>('/order/', data);
+    getProducts(): Promise<TProductFromServer[]> {
+      return this.api.get<IApiProductsResponse<TProductFromServer>>('/product/').then((data) =>
+      data.items);
+    }
+
+    sendOrder(data: IApiOrderRequest): Promise<IApiOrderResponse> {
+      return this.api.post<IApiOrderResponse>('/order', data);
     }
 }

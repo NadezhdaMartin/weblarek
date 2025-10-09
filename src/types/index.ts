@@ -23,8 +23,21 @@ export interface IBuyer {
   address: string;
 }
 
-export type TProductsFromServer = IProduct;
-export interface IPurchaseData {
-  customer: IBuyer;
-  products: IProduct[];
+export type TErrors = Partial<Record<keyof IBuyer, string>>;
+
+export type TProductFromServer = IProduct;
+
+export interface IApiProductsResponse<Type> {
+    total: number,
+    items: Type[]
+}
+
+export interface IApiOrderRequest extends IBuyer {
+    total: number;
+    items: string[];
+}
+
+export interface IApiOrderResponse {
+    id: string;
+    total: number;
 }

@@ -1,4 +1,4 @@
-import { IBuyer, TPayment } from "../../types/index";
+import { IBuyer, TPayment, TErrors } from "../../types/index";
 
 export class Buyer {
     protected payment: TPayment;
@@ -13,11 +13,19 @@ export class Buyer {
         this.email = email;
     }
 
-    saveBuyerInfo(payment: TPayment, email: string, phone: string, address: string) {
-      this.payment = payment;
-      this.email = email;
-      this.phone = phone;
-      this.address = address;
+    saveBuyerInfo(updates: { payment?: TPayment; email?: string; phone?: string; address?: string }) {
+        if (updates.payment !== undefined) {
+            this.payment = updates.payment;
+        }
+        if (updates.email !== undefined) {
+            this.email = updates.email;
+        }
+        if (updates.phone !== undefined) {
+            this.phone = updates.phone;
+        }
+        if (updates.address !== undefined) {
+            this.address = updates.address;
+        }
     }
 
     getBuyerInfo(): IBuyer {
@@ -36,8 +44,8 @@ export class Buyer {
       this.address = '';
     }
 
-    validateData(): { [key: string]: string } {
-        const errors: { [key: string]: string } = {};
+    validateData(): TErrors {
+        const errors: TErrors = {};
 
         if (!this.payment) {
             errors.payment = 'Необходимо выбрать вид оплаты';
