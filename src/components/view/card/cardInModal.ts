@@ -5,7 +5,7 @@ import { IEvents } from "../../base/Events";
 import { categoryMap } from "../../../utils/constants";
 
 export type TCardModal = Pick<IProduct,'id' | 'image' | 'category' | 'description'> & {
-  inCart: string;
+  buttonText: string;
 };
 type CategoryKey = keyof typeof categoryMap;
 
@@ -52,8 +52,12 @@ export class CardInModal extends Card<TCardModal> {
     this.descriptionElement.textContent = value;
   }
 
-  set inCart(value: string) {
+  set buttonText(value: string) {
     this.addCardButton.textContent = value;
-    this.addCardButton.disabled = value === 'Недоступно';
+  }
+
+  set price(value: number | null) {
+    this.addCardButton.disabled = value == null;
+    super.price = value;
   }
 }

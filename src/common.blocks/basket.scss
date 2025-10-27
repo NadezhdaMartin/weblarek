@@ -16,6 +16,11 @@
     border-bottom: 1px solid $primary;
     padding: 1.5rem 0;
 
+    &-empty {
+      opacity: 0.3;
+      list-style: none;
+    }
+
     &-index {
       @include mixins.flex(row);
       justify-content: center;

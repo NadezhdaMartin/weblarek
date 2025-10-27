@@ -32,10 +32,6 @@ export class ModalCart extends Component<IModalCart> {
   }
 
   set cartButtonState(isEmpty: boolean) {
-    if (isEmpty) {
-      this.cartButton.disabled = true;
-    } else {
-      this.cartButton.disabled = false;
-    }
+    this.cartButton.disabled = isEmpty;
   }
 }

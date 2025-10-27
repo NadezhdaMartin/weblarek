@@ -69,7 +69,7 @@ events.on('card:select', (item: IProduct) => {
   }
   const itemWithTextButton = {
     ...item,
-    inCart: text,
+    buttonText: text,
   };
   const renderedCard = cardInModal.render(itemWithTextButton);
 
@@ -97,8 +97,7 @@ events.on('cart:changed', () => {
     modalCart.calculateTotalPrice = 0;
     const emptyMessage = document.createElement('li');
     emptyMessage.textContent = 'Корзина пуста';
-    emptyMessage.style.opacity = '0.3'
-    emptyMessage.style.listStyle = 'none'
+    emptyMessage.classList.add('basket__item-empty')
     modalCart.cartItems = [emptyMessage];
   } else {
     //генерируем карточки товара
